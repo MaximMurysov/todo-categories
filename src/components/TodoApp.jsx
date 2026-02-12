@@ -1,10 +1,8 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
 import { TiDelete } from "react-icons/ti";
+import TodoCategory from "./TodoCategory";
 function TodoApp() {
-  const category = ["job", "home", "hobby"];
-
-  const [activeCategory, setActiveCategory] = useState("job");
   const [todos, setTodos] = useState({
     job: [],
     home: [],
@@ -12,10 +10,7 @@ function TodoApp() {
   });
 
   const [form, setForm] = useState("");
-
-  const handleCategoryClick = (elem) => {
-    setActiveCategory(elem);
-  };
+  const [activeCategory, setActiveCategory] = useState("job");
   const addTodo = () => {
     if (form.trim() === "") return;
     const newForm = {
@@ -28,6 +23,9 @@ function TodoApp() {
       [activeCategory]: [...todos[activeCategory], newForm],
     });
     setForm("");
+  };
+  const handleCategoryClick = (elem) => {
+    setActiveCategory(elem);
   };
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -51,17 +49,10 @@ function TodoApp() {
   return (
     <div className={styles.todo}>
       <div className={styles["todo-container"]}>
-        <div className={styles.todos}>
-          {category.map((elem) => (
-            <button
-              key={elem}
-              onClick={() => handleCategoryClick(elem)}
-              className={`${styles["todo-btn"]} ${elem === activeCategory ? styles.active : ""}`}
-            >
-              {elem}
-            </button>
-          ))}
-        </div>
+        <TodoCategory
+          activeCategory={activeCategory}
+          handleCategoryClick={handleCategoryClick}
+        />
         <div className={styles.todoAdd}>
           <input
             className={styles.input}

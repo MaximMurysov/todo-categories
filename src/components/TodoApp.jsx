@@ -9,13 +9,21 @@ function TodoApp() {
     home: [],
     hobbie: [],
   });
-
+  const handleCategoryClick = (elem) => {
+    setActiveCategory(elem);
+  };
   return (
     <div className={styles.todo}>
       <div className={styles["todo-container"]}>
         <div className={styles.todos}>
           {category.map((elem) => (
-            <button className={styles["todo-btn"]}>{elem}</button>
+            <button
+              key={elem}
+              onClick={() => handleCategoryClick(elem)}
+              className={`${styles["todo-btn"]} ${elem === activeCategory ? styles.active : ""}`}
+            >
+              {elem}
+            </button>
           ))}
         </div>
       </div>

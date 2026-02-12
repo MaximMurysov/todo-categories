@@ -25,4 +25,8 @@
   padding: 10px 20px;
   border: 1px red solid;
   background-color: whitesmoke;
+  cursor: pointer;
+}
+.active {
+  border: 1px green solid;
 }

@@ -19,14 +19,30 @@
 .todos {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .todo-btn {
   padding: 10px 20px;
   border: 1px red solid;
   background-color: whitesmoke;
   cursor: pointer;
+  width: 90px;
 }
 .active {
   border: 1px green solid;
+}
+.todoItem {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.input {
+  padding: 10px;
+}
+.addBtn {
+  padding: 10px 20px;
+  background-color: whitesmoke;
+  cursor: pointer;
+  border: 1px green solid;
+  width: 90px;
 }

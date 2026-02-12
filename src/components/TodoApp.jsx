@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./styles.module.css";
 import { TiDelete } from "react-icons/ti";
 import TodoCategory from "./TodoCategory";
+import TodoAdd from "./TodoAdd";
 function TodoApp() {
   const [todos, setTodos] = useState({
     job: [],
@@ -9,29 +10,12 @@ function TodoApp() {
     hobby: [],
   });
 
-  const [form, setForm] = useState("");
   const [activeCategory, setActiveCategory] = useState("job");
-  const addTodo = () => {
-    if (form.trim() === "") return;
-    const newForm = {
-      id: crypto.randomUUID(),
-      text: form,
-      completed: false,
-    };
-    setTodos({
-      ...todos,
-      [activeCategory]: [...todos[activeCategory], newForm],
-    });
-    setForm("");
-  };
+
   const handleCategoryClick = (elem) => {
     setActiveCategory(elem);
   };
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      addTodo();
-    }
-  };
+
   const toggleTodo = (id) => {
     setTodos({
       ...todos,
@@ -53,19 +37,11 @@ function TodoApp() {
           activeCategory={activeCategory}
           handleCategoryClick={handleCategoryClick}
         />
-        <div className={styles.todoAdd}>
-          <input
-            className={styles.input}
-            type="text"
-            value={form}
-            onKeyDown={handleEnter}
-            placeholder="Enter a new task..."
-            onChange={(e) => setForm(e.target.value)}
-          />
-          <button className={styles.addBtn} onClick={addTodo}>
-            Add
-          </button>
-        </div>
+        <TodoAdd
+          setTodos={setTodos}
+          todos={todos}
+          activeCategory={activeCategory}
+        />
         <div className={styles["todo-items__section"]}>
           {todos[activeCategory].map((todo) => (
             <div key={todo.id} className={styles.todoItems}>

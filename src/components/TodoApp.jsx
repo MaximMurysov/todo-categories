@@ -29,7 +29,11 @@ function TodoApp() {
     });
     setForm("");
   };
-
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      addTodo();
+    }
+  };
   const toggleTodo = (id) => {
     setTodos({
       ...todos,
@@ -63,6 +67,7 @@ function TodoApp() {
             className={styles.input}
             type="text"
             value={form}
+            onKeyDown={handleEnter}
             placeholder="Enter a new task..."
             onChange={(e) => setForm(e.target.value)}
           />

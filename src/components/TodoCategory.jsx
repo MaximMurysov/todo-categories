@@ -1,17 +1,26 @@
 import styles from "./styles.module.css";
-
-function TodoCategory({ activeCategory, handleCategoryClick }) {
-  const category = ["job", "home", "hobby"];
-
+import { IoCloseSharp } from "react-icons/io5";
+function TodoCategory({
+  activeCategory,
+  handleCategoryClick,
+  todos,
+  deleteCategory,
+}) {
   return (
     <div className={styles.todos}>
-      {category.map((elem) => (
+      {Object.keys(todos).map((elem) => (
         <button
-          key={elem}
           onClick={() => handleCategoryClick(elem)}
-          className={`${styles["todo-btn"]} ${elem === activeCategory ? styles.active : ""}`}
+          className={`${styles["todo-btn"]} ${activeCategory === elem ? styles.active : ""}`}
         >
           {elem}
+          <IoCloseSharp
+            className={styles.deleteCategory}
+            onClick={(e) => {
+              e.stopPropagation();
+              deleteCategory(elem);
+            }}
+          />
         </button>
       ))}
     </div>

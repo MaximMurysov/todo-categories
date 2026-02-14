@@ -15,13 +15,24 @@ function TodoApp() {
   const handleCategoryClick = (elem) => {
     setActiveCategory(elem);
   };
-
+  const deleteCategory = (catToDelete) => {
+    if (Object.keys(todos).length <= 1) return;
+    const newTodos = { ...todos };
+    delete newTodos[catToDelete];
+    setTodos(newTodos);
+    if (catToDelete === activeCategory) {
+      const remaining = Object.keys(newTodos);
+      setActiveCategory(remaining[0]);
+    }
+  };
   return (
     <div className={styles.todo}>
       <div className={styles["todo-container"]}>
         <TodoCategory
           activeCategory={activeCategory}
           handleCategoryClick={handleCategoryClick}
+          todos={todos}
+          deleteCategory={deleteCategory}
         />
         <TodoAdd
           setTodos={setTodos}
@@ -34,7 +45,6 @@ function TodoApp() {
               key={todo.id}
               activeCategory={activeCategory}
               setTodos={setTodos}
-              todos={todos}
               todo={todo}
             />
           ))}
